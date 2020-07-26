@@ -1,3 +1,5 @@
+[![Alire](https://img.shields.io/endpoint?url=https://alire.ada.dev/badges/cortex_m.json)](https://alire.ada.dev/crates/cortex_m.html)
+
 # cortex-m
 Ada drivers for the peripherals of ARM Cortex-M micro-controllers (NVIC, SysTick, etc.)
 
