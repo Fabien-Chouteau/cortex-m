@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                    Copyright (C) 2015, AdaCore                           --
+--                 Copyright (C) 2015-2020, AdaCore                         --
 --                                                                          --
 --  Redistribution and use in source and binary forms, with or without      --
 --  modification, are permitted provided that the following conditions are  --
@@ -43,11 +43,12 @@
 --  STM32F4 (ARM Cortex M4F) microcontrollers from ST Microelectronics.
 
 with System;
-with HAL;    use HAL;
+with HAL;            use HAL;
 
 package Cortex_M.NVIC is  -- the Nested Vectored Interrupt Controller
 
-   type Interrupt_ID is range 0 .. 240;
+   type Interrupt_ID is new Natural range 0 .. 240;
+   type Interrupt_Priority is new UInt32;
 
    --  0 bits for pre-emption priority;  4 bits for subpriority
    Priority_Group_0 : constant UInt32 := 16#00000007#;
@@ -65,22 +66,27 @@ package Cortex_M.NVIC is  -- the Nested Vectored Interrupt Controller
    Priority_Group_4 : constant UInt32 := 16#00000003#;
 
 
-   procedure Set_Priority_Grouping (Priority_Group : UInt32) with Inline;
+   procedure Set_Priority_Grouping (Priority_Group : Interrupt_Priority)
+     with Inline;
 
-   function Priority_Grouping return UInt32 with Inline;
+   function Priority_Grouping return Interrupt_Priority
+     with Inline;
 
    procedure Set_Priority
      (IRQn     : Interrupt_ID;
-      Priority : UInt32) with Inline;
+      Priority : Interrupt_Priority) with Inline;
 
    function Encoded_Priority
-     (Priority_Group : UInt32;  Preempt_Priority : UInt32;  Subpriority : UInt32)
-      return UInt32 with Inline;
+     (Priority_Group   : Interrupt_Priority;
+      Preempt_Priority : Interrupt_Priority;
+      Subpriority      : Interrupt_Priority)
+      return Interrupt_Priority
+     with Inline;
 
    procedure Set_Priority
      (IRQn             : Interrupt_ID;
-      Preempt_Priority : UInt32;
-      Subpriority      : UInt32) with Inline;
+      Preempt_Priority : Interrupt_Priority;
+      Subpriority      : Interrupt_Priority) with Inline;
    --  A convenience routine that first encodes (Priority_Grouping(),
    --  Preempt_Priority, and Subpriority), and then calls the other
    --  Set_Priority with the resulting encoding for the Priority argument.
@@ -249,5 +255,3 @@ private
    --  STM32F4XX uses 4 bits for the priority levels
 
 end Cortex_M.NVIC;
-
-

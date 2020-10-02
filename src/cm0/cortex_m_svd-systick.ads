@@ -29,14 +29,15 @@ package Cortex_M_SVD.SysTick is
 
    --  Generate Tick Interrupt
    type CSR_TICKINT_Field is
-     (--  Counting down to zero asserts the SysTick exception request
-      Disable,
+     (
       --  Counting down to zero does not assert the SysTick exception request
-      Enable)
+      Enable,
+      --  Counting down to zero asserts the SysTick exception request
+      Disable)
      with Size => 1;
    for CSR_TICKINT_Field use
-     (Disable => 0,
-      Enable => 1);
+     (Enable => 0,
+      Disable => 1);
 
    --  Source to count from
    type CSR_CLKSOURCE_Field is
@@ -55,7 +56,7 @@ package Cortex_M_SVD.SysTick is
       --  Enable SysTick Timer
       ENABLE         : CSR_ENABLE_Field := Cortex_M_SVD.SysTick.Disable;
       --  Generate Tick Interrupt
-      TICKINT        : CSR_TICKINT_Field := Cortex_M_SVD.SysTick.Disable;
+      TICKINT        : CSR_TICKINT_Field := Cortex_M_SVD.SysTick.Enable;
       --  Source to count from
       CLKSOURCE      : CSR_CLKSOURCE_Field :=
                         Cortex_M_SVD.SysTick.External_Clk;
