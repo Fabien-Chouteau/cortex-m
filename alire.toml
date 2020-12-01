@@ -13,7 +13,7 @@ Library](https://github.com/AdaCore/Ada_Drivers_Library/) repo.
 '''
 
 name = "cortex_m"
-version = "0.2.0"
+version = "0.3.0"
 licenses = ["BSD 3-Clauses"]
 authors=["AdaCore"]
 website="https://github.com/AdaCore/Ada_Drivers_Library/"
