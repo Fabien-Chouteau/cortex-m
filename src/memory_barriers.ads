@@ -39,4 +39,3 @@ package Memory_Barriers is
    procedure DSB renames Data_Synchronization_Barrier;
 
 end Memory_Barriers;
-
