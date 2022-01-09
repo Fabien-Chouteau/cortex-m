@@ -12,8 +12,8 @@ project Cortex_M4F is
                         "src/nocache",
                         "src/nvic_cm4_cm7");
 
-   for Object_Dir use "obj/cm4f/";
-   for Library_Dir use "lib/cm4f/";
+   for Object_Dir use CortexM_Common'Object_Dir & "/cm4f";
+   for Library_Dir use CortexM_Common'Library_Dir & "/cm4f";
 
    for Library_Name use "cortex_m4f";
    for Library_Version use CortexM_Common'Library_Version;
