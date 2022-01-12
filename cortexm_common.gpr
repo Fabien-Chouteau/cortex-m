@@ -2,7 +2,7 @@ with "config/cortex_m_config.gpr";
 
 abstract project CortexM_Common is
 
-   for Library_Version use Cortex_M_Config.Crate_Version;
+   for Library_Version use Project'Library_Name & ".so." & Cortex_M_Config.Crate_Version;
 
    type Library_Type_Type is ("relocatable", "static", "static-pic");
    Library_Type : Library_Type_Type :=
