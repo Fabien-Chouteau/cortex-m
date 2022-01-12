@@ -12,8 +12,8 @@ project Cortex_M7 is
                         "src/cache",
                         "src/nvic_cm4_cm7");
 
-   for Object_Dir use CortexM_Common'Object_Dir & "/cm7";
-   for Library_Dir use CortexM_Common'Library_Dir & "/cm7";
+   for Object_Dir use "obj/cm7/";
+   for Library_Dir use "lib/cm7/";
 
    for Library_Name use "cortex_m7";
    for Library_Version use CortexM_Common'Library_Version;
