@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------
 --                                                                          --
---                    Copyright (C) 2017, AdaCore                           --
+--                    Copyright (C) 2021, AdaCore                           --
 --                                                                          --
 --  Redistribution and use in source and binary forms, with or without      --
 --  modification, are permitted provided that the following conditions are  --
@@ -28,54 +28,44 @@
 --   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.   --
 --                                                                          --
 ------------------------------------------------------------------------------
+with System.Machine_Code; use System.Machine_Code;
 
---  This package provides utility routines for use with the Data Watchpoint
---  Trace (DWT) facility defined by ARM for Cortex M processors. As such it
---  should be vendor-independent.
+package body Cortex_M.Hints is
 
-with HAL;  use HAL;
+   -----------
+   -- Yield --
+   -----------
 
-package Cortex_M.DWT is  --  Data Watchpoint Trace
-   pragma Elaborate_Body;
+   procedure Yield is
+   begin
+      Asm ("yield", Volatile => True);
+   end Yield;
 
-   --  The assumption is that application code will access the registers of
-   --  the DWT directly, via the SVD-generated package Cortex_M_SVD.DWT,
-   --  except when the convenience routines below are utilized.
+   ----------------
+   -- Send_Event --
+   ----------------
 
-   ----------------------------
-   --  Convenience functions --
-   ----------------------------
+   procedure Send_Event is
+   begin
+      Asm ("sev", Volatile => True);
+   end Send_Event;
 
-   --  DWT reset values. These constant are the control register considered
-   --  as unsigned 32-bit values for convenient comparison using the function
-   --  below. The values are just the NUMCOMP nibble and the boolean flags in
-   --  the next nibble.
-   No_DWT_Present                            : constant UInt32 := 0;
-   Only_One_Comparator                       : constant UInt32 :=
-      16#1000_0000#; --  268435456 dec
-   One_Comparator_Watchpoints                : constant UInt32 :=
-      16#1F00_0000#; --  520093696 dec
-   Four_Comparators_Watchpoints_And_Triggers : constant UInt32 :=
-      16#4000_0000#; -- 1073741824 dec
-   Four_Comparators_Watchpoints_Only         : constant UInt32 :=
-      16#4F00_0000#; -- 1325400064 dec
+   --------------------
+   -- Wait_For_Event --
+   --------------------
 
-   function DWT_Reset_Value return UInt32 with Inline;
-   --  Returns the value of the DWT.CTRL register as a word, for convenient
-   --  comparison to the constants above.
+   procedure Wait_For_Event is
+   begin
+      Asm ("wfe", Volatile => True);
+   end Wait_For_Event;
 
-   procedure Enable_DWT_Unit with
-     Post => DWT_Unit_Enabled,
-     Inline;
-   --  Sets the trace enable bit (TRCENA) in the Debug Exception & Monitor Ctrl
-   --  (DEMCR) register within the Cortex M Debug peripheral.
+   ------------------------
+   -- Wait_For_Interrupt --
+   ------------------------
 
-   procedure Disable_DWT_Unit with
-     Post => not DWT_Unit_Enabled,
-     Inline;
-   --  Clears the trace enable bit (TRCENA) in the Debug Exception & Monitor
-   --  Ctrl (DEMCR) register within the Cortex M Debug peripheral.
+   procedure Wait_For_Interrupt is
+   begin
+      Asm ("wfi", Volatile => True);
+   end Wait_For_Interrupt;
 
-   function DWT_Unit_Enabled return Boolean with Inline;
-
-end Cortex_M.DWT;
+end Cortex_M.Hints;
