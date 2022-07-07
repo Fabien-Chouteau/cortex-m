@@ -46,6 +46,7 @@ with System;
 with HAL;            use HAL;
 
 package Cortex_M.NVIC is  -- the Nested Vectored Interrupt Controller
+   pragma Elaborate_Body;
 
    type Interrupt_ID is new Natural range 0 .. 240;
    type Interrupt_Priority is new UInt32;
