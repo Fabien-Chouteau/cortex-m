@@ -32,6 +32,7 @@
 with HAL;
 
 package Cortex_M.Systick is
+   pragma Preelaborate;
 
    type Clock_Source is (CPU_Clock, External_Clock);
 

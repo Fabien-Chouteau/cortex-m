@@ -10,7 +10,7 @@ executables = ["tests"]
 
 [[depends-on]]
 cortex_m = "*"
-gnat_arm_elf = "^11.2.2"
+gnat_arm_elf = "^12.1"
 
 [[pins]]
 cortex_m = { path='..' }
@@ -19,4 +19,4 @@ cortex_m = { path='..' }
 cortex_m = "validation"
 
 [configuration.values]
-cortex_m.core = "m0"
+cortex_m.core = "m7df"

@@ -10,7 +10,7 @@ project Tests is
    for Main use ("tests.adb");
 
    for Target use "arm-eabi";
-   for Runtime ("Ada") use Cortex_M.ZFP_Runtime;
+   for Runtime ("Ada") use Cortex_M.Light_Runtime;
 
    package Compiler is
       for Default_Switches ("Ada") use Tests_Config.Ada_Compiler_Switches;
