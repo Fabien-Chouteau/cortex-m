@@ -13,7 +13,7 @@ Library](https://github.com/AdaCore/Ada_Drivers_Library/) repo.
 '''
 
 name = "cortex_m"
-version = "0.6.0-dev"
+version = "0.6.1-dev"
 licenses = "BSD-3-Clause"
 authors=["AdaCore"]
 website="https://github.com/AdaCore/Ada_Drivers_Library/"
@@ -22,7 +22,7 @@ maintainers-logins = ["Fabien-Chouteau"]
 tags = ["embedded", "arm", "nostd"]
 
 [[depends-on]]
-hal = "~0.3"
+hal = "~0.3 | ~0.4"
 gnat_arm_elf = ">=12"
 
 [configuration.variables]
